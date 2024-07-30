@@ -1,0 +1,10 @@
+## Interface: 30300
+## Title: ArkInventory Misc
+## Notes: Show iLvl for ArkInventory
+## Author: TheMFingYeti
+## Version: 1.0.0
+## RequiredDeps: ArkInventory
+## OptionalDeps: SynastriaCoreLib-1.0
+
+ArkInventoryMisc.lua
+
