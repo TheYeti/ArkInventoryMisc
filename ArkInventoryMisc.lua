@@ -5,7 +5,7 @@
 local SLOTIDS, FONTSIZE = {}, 12
 local R,G,B = 1,1,1
 for _,slot in pairs({"Head", "Neck", "Shoulder", "Back", "Chest", "Shirt", "Tabard", "Wrist", "Hands", "Waist", "Legs", "Feet", "Finger0", "Finger1", "Trinket0", "Trinket1", "MainHand", "SecondaryHand", "Ranged"}) do SLOTIDS[slot] = GetInventorySlotInfo(slot .. "Slot") end
-local frame = CreateFrame("Frame", nil, CharacterFrame)
+local frame = CreateFrame("Frame", "characterframe", CharacterFrame)
 
 local fontstrings = setmetatable({}, {
     __index = function(t,i)
@@ -23,7 +23,7 @@ local fontstrings = setmetatable({}, {
 
 function frame:OnEvent(event, arg1)
     if event == "ADDON_LOADED" and arg1:lower() ~= "arkinventorymisc" then
-        for i,fstr in pairs(fontstrings) do
+        for _,fstr in pairs(fontstrings) do
             local font, _, flags = NumberFontNormal:GetFont()
             fstr:SetFont(font, FONTSIZE, flags)
         end
@@ -40,6 +40,15 @@ function frame:OnEvent(event, arg1)
                 R, G, B = GetItemQualityColor(irarity)
                 str:SetTextColor(R,G,B)
                 str:SetText(string.format("%s", ilevel))
+                local bc = self:GetParent():CreateTexture(nil, "OVERLAY")
+                bc:SetTexture"Interface\\Buttons\\UI-ActionButton-Border"
+                bc:SetBlendMode"ADD"
+                bc:SetAlpha(.8)
+                bc:SetWidth(70)
+                bc:SetHeight(70)
+                bc:SetPoint("CENTER", self)
+                bc:SetVertexColor(R,G,B)
+                bc:Show()
             end
         else
             local str = rawget(fontstrings, slot)
