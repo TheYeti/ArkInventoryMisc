@@ -6,5 +6,6 @@
 ## RequiredDeps: ArkInventory
 ## OptionalDeps: SynastriaCoreLib-1.0
 
+ArkInventoryCharacter.lua
 ArkInventoryMisc.lua
 
