@@ -43,7 +43,7 @@ local fontstrings = setmetatable({}, {
 function frame:OnEvent(event, arg1)
     if event == "ADDON_LOADED" and arg1:lower() ~= "arkinventorymisc" then
         hooksecurefunc("ToggleCharacter", function() addon:characterFrame_OnToggle()  end)
-        for i,fstr in pairs(fontstrings) do
+        for _,fstr in pairs(fontstrings) do
             local font, _, flags = NumberFontNormal:GetFont()
             fstr:SetFont(font, FONTSIZE, flags)
         end
@@ -90,7 +90,7 @@ function addon:updateBorder(unit, frameType)
 
             if (quality) then
                 R, G, B = GetItemQualityColor(quality)
-                slotslot.qborder:SetVertexColor(R, G, B)
+                slotslot.qborder:SetTexture(R, G, B)
                 slotslot.qborder:SetAlpha(0.5)
                 slotslot.qborder:Show()
             else
@@ -100,17 +100,15 @@ function addon:updateBorder(unit, frameType)
     end
 end
 
-function addon:createBorder(name, parent, width, height, x, y)
-    local x = x or 0
-    local y = y or 1
-    local border = parent:CreateTexture(name .. "Quality", "OVERLAY")
+function addon:createBorder(name, parent, width, height)
+    local border = parent:CreateTexture(name .. "Quality", "BORDER")
 
-    border:SetTexture("Interface\\Buttons\\UI-ActionButton-Border")
+    border:SetTexture(0,0,0)
     border:SetBlendMode("ADD")
     border:SetAlpha(0.5)
     border:SetHeight(height)
     border:SetWidth(width)
-    border:SetPoint("CENTER", parent, "CENTER", x, y)
+    border:SetAllPoints(parent, "CENTER")
     border:Hide()
 
     return border
